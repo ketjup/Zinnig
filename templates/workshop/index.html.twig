@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Workshop index{% endblock %}
+
+{% block body %}
+    <h1>Workshop index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Naam</th>
+                <th>Min_personen</th>
+                <th>Max_personen</th>
+                <th>Datum</th>
+                <th>Tijd</th>
+                <th>Prijs</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for workshop in workshops %}
+            <tr>
+                <td>{{ workshop.id }}</td>
+                <td>{{ workshop.naam }}</td>
+                <td>{{ workshop.minPersonen }}</td>
+                <td>{{ workshop.maxPersonen }}</td>
+                <td>{{ workshop.datum ? workshop.datum|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ workshop.tijd ? workshop.tijd|date('H:i:s') : '' }}</td>
+                <td>{{ workshop.prijs }}</td>
+                <td>
+                    <a href="{{ path('workshop_show', {'id': workshop.id}) }}">show</a>
+                    <a href="{{ path('workshop_edit', {'id': workshop.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('workshop_new') }}">Create new</a>
+{% endblock %}
